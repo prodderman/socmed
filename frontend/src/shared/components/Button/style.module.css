@@ -1,0 +1,64 @@
+.button {
+  display: grid;
+  place-items: center;
+  height: 48px;
+  width: 100%;
+  max-width: 221px;
+
+  background: var(--btn-bg-clr);
+  border: 1px solid var(--btn-br-clr);
+  border-radius: 50px;
+
+  font-family: var(--font-family);
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 21px;
+  color: var(--btn-typo-clr);
+
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.button_appearance_primaryFilled {
+  --btn-typo-clr: var(--clr-white);
+  --btn-bg-clr: var(--clr-black);
+  --btn-br-clr: var(--clr-black);
+}
+
+.button_appearance_primaryFilled:hover {
+  --btn-bg-clr: var(--clr-black-grey);
+  --btn-br-clr: var(--clr-black-grey);
+}
+
+.button_appearance_primaryShaped {
+  --btn-typo-clr: var(--clr-black);
+  --btn-bg-clr: var(--clr-white);
+  --btn-br-clr: var(--clr-black);
+}
+
+.button_appearance_primaryShaped:hover {
+  --btn-typo-clr: var(--clr-white);
+  --btn-bg-clr: var(--clr-black);
+}
+
+.button_appearance_secondary {
+  --btn-typo-clr: var(--clr-black);
+  --btn-bg-clr: var(--clr-light-grey);
+  --btn-br-clr: var(--clr-light-grey);
+}
+
+.button_appearance_secondary:hover {
+  --btn-typo-clr: var(--clr-black-grey);
+}
+
+.button_appearance_transparent {
+  --btn-typo-clr: var(--clr-black);
+  --btn-bg-clr: transparent;
+  --btn-br-clr: var(--clr-black);
+}
+
+.button_appearance_transparent:hover {
+  --btn-typo-clr: var(--clr-black-grey);
+  --btn-br-clr: var(--clr-black-grey);
+}

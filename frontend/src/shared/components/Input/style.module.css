@@ -1,0 +1,117 @@
+.input {
+  --input-field-typo: var(--typo-size-13px);
+  --input-field-typo-clr: var(--clr-black);
+
+  position: relative;
+
+  display: grid;
+  align-items: baseline;
+  width: 100%;
+  padding: 25px 0px 12px;
+
+  border-bottom: 1px solid var(--input-br-clr);
+  background: transparent;
+}
+
+.input:not(.input_error) {
+  --input-br-clr: var(--clr-black);
+}
+
+.input_error {
+  --input-br-clr: var(--clr-blue);
+  --input-label-typo-clr: var(--clr-blue);
+}
+
+.input:not(.input_editMode) {
+  --input-label-typo: var(--input-field-typo);
+  --input-label-typo-clr: var(--input-field-typo-clr);
+  --input-label-translateY: 0px;
+}
+
+.input_editMode {
+  --input-label-typo: var(--typo-size-11px);
+  --input-label-typo-clr: var(--clr-black-grey);
+  --input-label-translateY: -25px;
+}
+
+.label {
+  grid-row: 1;
+  grid-column: 1;
+
+  font: var(--input-label-typo);
+  font-style: normal;
+  font-weight: 300;
+  color: var(--input-label-typo-clr);
+
+  pointer-events: none;
+  transform: translateY(var(--input-label-translateY));
+  transition: all 0.3s ease-in-out;
+}
+
+.field {
+  grid-row: 1;
+  grid-column: 1;
+
+  width: 100%;
+
+  font: var(--input-field-typo);
+  font-style: normal;
+  font-weight: 300;
+  color: var(--input-field-typo-clr);
+}
+
+.status {
+  grid-row: 1;
+  grid-column: 1;
+  justify-self: end;
+}
+
+.button {
+  grid-row: 1;
+  grid-column: 1;
+  justify-self: end;
+
+  font: var(--typo-size-11px);
+  font-style: normal;
+  font-weight: 300;
+
+  cursor: pointer;
+}
+
+.errorMessage {
+  position: absolute;
+  top: calc(100% + 12px);
+
+  font: var(--typo-size-11px);
+  font-style: normal;
+  font-weight: 300;
+  color: var(--clr-blue);
+}
+
+.select {
+  position: absolute;
+  top: calc(100% + 1px);
+
+  display: grid;
+  width: 100%;
+
+  background: var(--clr-white);
+  border: 1px solid var(--clr-grey);
+  border-top: none;
+}
+
+.item {
+  width: 100%;
+  padding: 12px 16px;
+
+  font: var(--typo-size-11px);
+  font-style: normal;
+  font-weight: 300;
+
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.item:hover {
+  background: var(--clr-light-grey);
+}

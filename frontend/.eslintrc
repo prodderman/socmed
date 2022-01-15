@@ -1,0 +1,90 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2021": true
+  },
+  "extends": ["plugin:react/recommended", "plugin:import/typescript", "airbnb"],
+  "plugins": ["react", "react-hooks", "@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": { "jsx": true },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "settings": {
+    "import/resolver": "typescript",
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    }
+  },
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      { "ts": "never", "tsx": "never" }
+    ],
+    "import/no-unresolved": ["error"],
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          ["builtin", "external"],
+          ["internal"],
+          ["parent"],
+          ["sibling", "index"]
+        ],
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": true }
+      }
+    ],
+    "import/prefer-default-export": ["off"],
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "ignore": "next.config.js" }
+    ],
+
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "varsIgnorePattern": "_" }
+    ],
+
+    "react/require-default-props": ["error"],
+    "react/no-unescaped-entities": ["off"],
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".jsx", ".tsx"] }
+    ],
+    "react/jsx-props-no-spreading": [
+      "error",
+      { "exceptions": ["App", "Component"] }
+    ],
+    "react/jsx-no-target-blank": ["error", { "enforceDynamicLinks": "never" }],
+    "react/jsx-one-expression-per-line": ["off"],
+    "react/react-in-jsx-scope": ["off"],
+    "react/function-component-definition": ["off"],
+    "react/prop-types": ["off"],
+
+    "react-hooks/rules-of-hooks": ["error"],
+    "react-hooks/exhaustive-deps": ["error"],
+
+    "linebreak-style": ["off"],
+    "no-useless-concat": ["warn"],
+    "no-shadow": ["off"],
+    "arrow-body-style": ["off"],
+    "prefer-arrow-callback": ["off"],
+    "object-curly-newline": ["off"],
+    "no-use-before-define": ["off"],
+    "no-unused-vars": ["off"],
+    "max-len": ["off"],
+    "no-undef": ["off"],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state"]
+      }
+    ]
+  }
+}

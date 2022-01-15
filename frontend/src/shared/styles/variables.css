@@ -1,0 +1,15 @@
+:root {
+  --clr-white: #ffffff;
+  --clr-black: #020203;
+  --clr-black-grey: #9a9a9a;
+  --clr-grey: #dcdcdc;
+  --clr-light-grey: #f0f0f0;
+  --clr-green: #164d2d;
+  --clr-blue: #3e51ff;
+
+  --font-family: Helvetica, Arial, sans-serif;
+
+  --typo-size-11px: 11px/14px var(--font-family);
+  --typo-size-13px: 13px/17px var(--font-family);
+  --typo-size-16px: 16px/20px var(--font-family);
+}
