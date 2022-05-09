@@ -1,42 +1,55 @@
 {
-  "name": "next-boilerplate",
+  "name": "remix-template-vercel",
   "private": true,
+  "description": "",
+  "license": "",
+  "sideEffects": false,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "remix build",
+    "dev": "remix dev"
   },
   "dependencies": {
-    "framer-motion": "^5.5.5",
-    "next": "12.0.7",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "the-new-css-reset": "^1.4.4"
+    "@remix-run/node": "^1.4.3",
+    "@remix-run/react": "^1.4.3",
+    "@remix-run/vercel": "^1.4.3",
+    "@vercel/node": "^1.14.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@types/node": "17.0.5",
-    "@types/react": "17.0.38",
-    "@typescript-eslint/eslint-plugin": "^5.8.1",
-    "@typescript-eslint/parser": "^5.8.1",
-    "eslint": "^8.5.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-next": "12.0.7",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-import-resolver-typescript": "^2.5.0",
-    "eslint-plugin-import": "^2.25.3",
+    "@remix-run/dev": "^1.4.3",
+    "@remix-run/eslint-config": "^1.4.3",
+    "@remix-run/serve": "^1.4.3",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.28.0",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "fork-ts-checker-webpack-plugin": "^6.5.0",
-    "prettier": "2.5.1",
-    "prettier-eslint": "^13.0.0",
-    "stylelint": "^14.2.0",
-    "stylelint-config-idiomatic-order": "^8.1.0",
-    "stylelint-config-prettier": "^9.0.3",
-    "stylelint-config-standard": "^24.0.0",
-    "stylelint-order": "^5.0.0",
-    "typescript": "4.5.4",
-    "typescript-plugin-css-modules": "^3.4.0"
+    "prettier": "2.6.2",
+    "typescript": "^4.5.5"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "printWidth": 110,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all",
+    "useTabs": false,
+    "overrides": [
+      {
+        "files": "*.json",
+        "options": {
+          "singleQuote": false,
+          "trailingComma": "none"
+        }
+      }
+    ]
   }
 }

@@ -1,46 +1,20 @@
 {
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
-    "target": "ES5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "plugins": [
-      {
-        "name": "typescript-plugin-css-modules"
-      }
-    ],
-    "module": "ESNext",
-    "allowJs": true,
-    "checkJs": false,
-    "strict": true,
-    "alwaysStrict": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "removeComments": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "declaration": false,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true,
+    "lib": ["DOM", "DOM.Iterable", "ES2019"],
     "isolatedModules": true,
-    "downlevelIteration": true,
-    "noEmit": true,
-    "jsx": "preserve",
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "target": "ES2019",
+    "strict": true,
     "baseUrl": ".",
-    "incremental": true
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "paths": {
+      "~/*": ["./app/*"]
+    },
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true
+  }
 }

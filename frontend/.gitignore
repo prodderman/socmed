@@ -1,31 +1,10 @@
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+node_modules
 
-# testing
-/coverage
+.cache
+.env
+.vercel
+.output
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-tsconfig.tsbuildinfo
-
-# debug
-npm-debug.log*
-
-# local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# vercel
-/.vercel
+/build/
+/public/build
+/api/index.js
