@@ -1,0 +1,10 @@
+cradle:
+  cabal:
+    - path: "src"
+      component: "lib:socmed"
+
+    - path: "app/Main.hs"
+      component: "socmed:exe:backend"
+
+    - path: "test"
+      component: "socmed:test:backend-test"

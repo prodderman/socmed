@@ -1,0 +1,67 @@
+cabal-version:      2.4
+name:               socmed
+version:            0.1.0.0
+author:             Stephen
+maintainer:         rainbowprodder@gmail.com
+
+library
+  exposed-modules:
+      Server
+      Server.Entities
+      Server.Handler
+      Server.Schema
+  hs-source-dirs: src
+  build-depends:
+      base >=4.7 && <5
+    , aeson
+    , time
+    , bytestring
+    , http-types
+    , mtl
+    , text
+    , time
+    , wai
+    , wai-extra
+    , warp
+    , servant
+    , servant-server
+  default-language: Haskell2010
+
+executable backend
+  main-is: Main.hs
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , socmed
+    , base >=4.7 && <5
+    , bytestring
+    , http-types
+    , mtl
+    , text
+    , time
+    , wai
+    , wai-extra
+    , warp
+  default-language: Haskell2010
+
+test-suite backend-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , socmed
+    , base >=4.7 && <5
+    , bytestring
+    , http-types
+    , mtl
+    , text
+    , time
+    , wai
+    , wai-extra
+    , warp
+  default-language: Haskell2010
