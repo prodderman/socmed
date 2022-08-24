@@ -2,11 +2,9 @@
 
 module Main where
 
-import           Data.Time
+import           App
+import           DB.Entities
 
-import           Server
-
+main :: IO ()
 main = do
-  time <- getCurrentTime
-  print time
-  runServer 8080
+  runApp 8080 "host=localhost port=5432 dbname=socmed"
