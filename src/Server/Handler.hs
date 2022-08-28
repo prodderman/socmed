@@ -2,25 +2,22 @@
 
 module Server.Handler where
 
-import           Data.ByteString         (ByteString)
-import           Data.Pool
-import           Data.Text               (pack)
-import           Database.Persist.Sql    (SqlBackend)
+import           Data.ByteString           (ByteString)
+import           Database.Persist.Sql      (SqlBackend)
 import           Servant.API
 import           Servant.Server
 
 import           Server.Handler.Articles
+import           Server.Handler.Auth
+import           Server.Handler.Categories
 import           Server.Handler.Users
 import           Server.Schema
+import           Server.Types
 
-server :: Pool SqlBackend -> Server API
-server pool =
-   articlesHandler pool
-   :<|> (getCategories :<|> createCategory :<|> updateCategory :<|> deleteCategory)
-   :<|> usersHandler pool
-  where
-    getCategories = pure "get categories"
-    createCategory body = pure body
-    updateCategory id body = pure id
-    deleteCategory id = pure id
+server :: ServerM API
+server  =
+   authHandler
+   :<|> articlesHandler
+   :<|> categoriesHandler
+   :<|> usersHandler
 

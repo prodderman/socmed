@@ -1,24 +1,30 @@
 {-# LANGUAGE DataKinds         #-}
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeFamilies      #-}
 {-# LANGUAGE TypeOperators     #-}
 
 module Server.Schema where
 
-import           Control.Lens
-import           Data.Aeson.Encode.Pretty   (encodePretty)
-import qualified Data.ByteString.Lazy.Char8 as BL8
-import           Data.Proxy                 (Proxy (Proxy))
+
+import           Control.Monad.Reader
+import           Data.Aeson.Encode.Pretty         (encodePretty)
+import qualified Data.ByteString.Lazy.Char8       as BL8
+import           Data.Pool                        (Pool)
+import           Data.Proxy                       (Proxy (Proxy))
 import           Data.Swagger
 import           Data.Text
-import           Data.Time                  (UTCTime)
-import           Database.Persist           (Entity)
-import           GHC.Generics               (Generic)
+import           Data.Time                        (UTCTime)
+import           Database.Persist                 (Entity)
+import           Database.Persist.Postgresql      (SqlBackend)
+import           GHC.Generics                     (Generic)
 import           Servant.API
+import           Servant.Server
+import           Servant.Server.Experimental.Auth (AuthServerData)
 import           Servant.Swagger
 
-import           DB.Entities                (User)
-import qualified Server.Entities            as Entities
+import           DB.Entities                      (User)
+import qualified Server.Entities                  as Entities
 
 data SortBy = Date | Author | Category deriving (Generic, Show)
 
@@ -27,26 +33,47 @@ instance FromHttpApiData SortBy where
   parseUrlPiece "category" = Right Category
   parseUrlPiece _          = Right Date
 
-instance ToParamSchema SortBy where
+instance ToParamSchema SortBy
 
 type API = DomainAPI
 
-type ApiRoute a = "api" :> a
+type Protected = AuthProtect "auth"
+type instance AuthServerData Protected = Entity User
 
-type DomainAPI =
-       ApiRoute Articles
-  :<|> ApiRoute Categories
-  :<|> ApiRoute Users
+type DomainAPI = "api" :> (Auth :<|> Articles :<|> Categories :<|> Users)
+
+type Auth =
+  "auth"
+  :> ( Login
+  :<|> Refresh
+  :<|> Logout )
+
+type Login =
+  "login"
+  :> ReqBody '[JSON] Entities.UserCredential
+  :> Post '[JSON] Entities.AccessToken
+
+type Refresh =
+ "refresh"
+  :> ReqBody '[JSON] Text
+  :> Post '[JSON] Text
+
+type Logout =
+  Protected
+  :> "logout"
+  :> ReqBody '[JSON] Text
+  :> Post '[JSON] Text
 
 type Articles =
-       GetArticles
+  "articles"
+  :> ( GetArticles
   :<|> GetArticle
   :<|> CreateArticle
   :<|> UpdateArticle
-  :<|> DeleteArticle
+  :<|> DeleteArticle )
 
-type GetArticles = "articles"
-  :> QueryParam "created_at" UTCTime
+type GetArticles =
+     QueryParam "created_at" UTCTime
   :> QueryParam "created_until" UTCTime
   :> QueryParam "created_since" UTCTime
   :> QueryParam "author" Text
@@ -56,51 +83,51 @@ type GetArticles = "articles"
   :> QueryParam "sortBy" SortBy
   :> Get '[JSON] [Text]
 
-type GetArticle = "articles"
-  :> Capture "id" Text
+type GetArticle =
+  Capture "id" Text
   :> Get '[JSON] Text
 
-type CreateArticle = "articles"
-  :> ReqBody '[JSON] Text
+type CreateArticle =
+  ReqBody '[JSON] Text
   :> Post '[JSON] Text
 
-type UpdateArticle = "articles"
-  :> Capture "id" Text
+type UpdateArticle =
+  Capture "id" Text
   :> ReqBody '[JSON] Text
   :> Put '[JSON] Text
 
-type DeleteArticle = "articles"
-  :> Capture "id" Text
+type DeleteArticle =
+  Capture "id" Text
   :> Delete '[JSON] Text
 
 
 type Categories =
-       GetCategories
+  "categories"
+  :> ( GetCategories
   :<|> CreateCategory
   :<|> UpdateCategory
-  :<|> DeleteCategory
+  :<|> DeleteCategory )
 
-type GetCategories = "categories"
-  :> Get '[JSON] Text
+type GetCategories =
+  Get '[JSON] Text
 
-type CreateCategory = "categories"
-  :> ReqBody '[JSON] Text
+type CreateCategory =
+  ReqBody '[JSON] Text
   :> Post '[JSON] Text
 
-type UpdateCategory = "categories"
-  :> Capture "id" Text
+type UpdateCategory =
+  Capture "id" Text
   :> ReqBody '[JSON] Text
   :> Put '[JSON] Text
 
-type DeleteCategory = "categories"
-  :> Capture "id" Text
+type DeleteCategory =
+  Capture "id" Text
   :> Delete '[JSON] Text
 
 
-type Users = GetUsers
+type Users = "users" :> GetUsers
 
-type GetUsers = "users"
-  :> Get '[JSON] [Text]
+type GetUsers = Get '[JSON] [Text]
 
 type SwaggerAPI = "swagger" :> "swagger.json" :> Get '[JSON] Swagger
 

@@ -12,9 +12,14 @@ library
     App
     Server.Entities
     Server.Handler
+    Server.Handler.Auth
+    Server.Handler.Categories
     Server.Handler.Articles
     Server.Handler.Users
     Server.Schema
+    Server.Types
+    Server.Auth.JWT
+    Server.Auth.Handler
   hs-source-dirs: src
   build-depends:
       base >=4.7 && <5
@@ -27,13 +32,18 @@ library
     , text
     , monad-logger
     , time
+    , monad-time
     , wai
     , wai-extra
     , warp
     , lens
+    , jose
+    , cryptonite
     , swagger2
     , resource-pool
     , servant
+    , servant-auth
+    , servant-auth-server
     , servant-server
     , servant-swagger
     , esqueleto

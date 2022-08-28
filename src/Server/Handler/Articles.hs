@@ -1,15 +1,14 @@
 module Server.Handler.Articles where
 
-import           Data.Pool
 import           Data.Text
-import           Database.Persist.Postgresql (SqlBackend)
 import           Servant
 
 import           DB.Query
 import           Server.Schema
+import           Server.Types
 
-articlesHandler :: Pool SqlBackend -> Server Articles
-articlesHandler pool = getArticles :<|> getArticle :<|> createArticle :<|> updateArticle :<|> deleteArticle
+articlesHandler :: ServerM Articles
+articlesHandler = getArticles :<|> getArticle :<|> createArticle :<|> updateArticle :<|> deleteArticle
   where
     getArticles createdAt _ _ mAuthor mCategory mTitle mContent mSortBy = pure
       [ pack $ show createdAt

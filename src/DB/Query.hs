@@ -1,4 +1,5 @@
 {-# LANGUAGE FlexibleContexts    #-}
+{-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE RankNTypes          #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeApplications    #-}
@@ -13,12 +14,16 @@ import           Database.Persist.Postgresql     (SqlBackend)
 import           Control.Monad.Logger            (MonadLogger, NoLoggingT)
 import           DB.Entities
 
-type QueryT m a = SqlReadT m a
-
 fetchUsers :: (MonadIO m) => Pool SqlBackend -> m [Entity User]
 fetchUsers pool =
   let query = select $ from $ table @User
   in liftIO $ runQuery pool query
+
+findUserBy :: (MonadIO m, PersistField typ) => EntityField User typ -> typ -> SqlReadT m (Maybe (Entity User))
+findUserBy field value = selectOne $ do
+    user <- from $ table @User
+    where_ (user ^. field ==. val value)
+    pure user
 
 getArticles :: (MonadIO m, MonadLogger m) => Pool SqlBackend -> m [(Entity Article, Maybe (Entity Category))]
 getArticles pool =
@@ -28,6 +33,4 @@ getArticles pool =
         pure (article, category)
   in liftIO $ runQuery pool query
 
-
--- runQuery :: (MonadIO m, MonadLogger m) => Pool SqlBackend -> QueryT m a -> IO a
 runQuery pool query =  runSqlPersistMPool query pool

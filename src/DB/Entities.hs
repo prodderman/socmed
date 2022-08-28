@@ -33,8 +33,9 @@ PTH.share [PTH.mkPersist PTH.sqlSettings, PTH.mkMigrate "migrateAll"] [PTH.persi
   User sql=users
     name Text
     email Text
-    password Text
+    password ByteString
     admin Bool
+    age Int
     UniqueEmail email
     deriving Show Read Eq
 
@@ -44,4 +45,10 @@ PTH.share [PTH.mkPersist PTH.sqlSettings, PTH.mkMigrate "migrateAll"] [PTH.persi
     creator UserId
     category CategoryId
     createdAt UTCTime
+    published Bool
+
+  Tokens sql=tokens
+    userId UserId
+    token Text
+    UniqueToken token
 |]

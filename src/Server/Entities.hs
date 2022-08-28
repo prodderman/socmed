@@ -1,37 +1,29 @@
-{-# LANGUAGE DeriveAnyClass    #-}
-{-# LANGUAGE DeriveGeneric     #-}
+
 {-# LANGUAGE OverloadedStrings #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
 module Server.Entities where
 
-import           Data.Aeson      (FromJSON, ToJSON)
+import           Data.Aeson
 import           Data.ByteString
 import           Data.Text
+import qualified Data.Text.Lazy  as LT
 import           GHC.Generics    (Generic)
 import           Servant         (FromHttpApiData (parseUrlPiece))
 
-data User = User
-  { uName         :: Text
-  , uLogin        :: Text
-  , uPasswordHash :: Text
-  , uCreated      :: Text
-  , uAdmin        :: Bool
-  , uCanCreate    :: Bool
-  }
-  deriving (FromJSON, Generic, ToJSON)
+data UserCredential = UserCredential Text Text
+  deriving (Show)
 
-data Category = Root Text
-              | SubCategory Category Text
-  deriving (FromJSON, Generic, Show, ToJSON)
+instance FromJSON UserCredential where
+  parseJSON (Object v) = UserCredential <$> v .: "email" <*> v .: "password"
+  parseJSON _          = mempty
 
-data Article = Article
-  { pTitle     :: Text
-  , pCreated   :: Text
-  , pCreator   :: User
-  , pCategory  :: Category
-  , pContent   :: Text
-  , pMedia     :: [Text]
-  , pPublished :: Bool
-  }
-  deriving (FromJSON, Generic, ToJSON)
+instance ToJSON UserCredential where
+  toJSON (UserCredential email password) = object ["email" .= email, "password" .= password]
+
+newtype AccessToken = AccessToken LT.Text
+  deriving (Show)
+
+instance ToJSON AccessToken where
+  toJSON (AccessToken t)  = object ["accessToken" .= t]
 
